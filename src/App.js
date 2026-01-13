@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import RotatingTitles from './components/RotatingTitles';
 import './styles.css';
 
-export default function App() {
+function App() {
+  // This effect runs once when the app loads to start the scroll animations
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -12,12 +12,16 @@ export default function App() {
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    // Look for all elements with the 'reveal' class
+    const elements = document.querySelectorAll('.reveal');
+    elements.forEach((el) => observer.observe(el));
+
+    // Cleanup observer on unmount
     return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="portfolio-container">
+    <div className="App">
       <nav className="navbar">
         <div className="logo">Ashil Saji</div>
         <div className="nav-links">
@@ -27,67 +31,42 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section id="home" className="section hero reveal">
-        <div className="split-left">
-          <div className="image-placeholder main-photo">
-            <img src="https://via.placeholder.com/800x1200" alt="Ashil Saji" />
-          </div>
+      <header id="home" className="hero-section reveal">
+        <h1 className="hero-text">My Portfolio</h1>
+        <h2 className="role-title">Data Science Engineer</h2>
+        <p className="description">
+          Specializing in building scalable data-driven applications.
+        </p>
+        <button className="explore-btn">Explore Now</button>
+        <div className="project-tags">
+          <span>Project Alpha</span> | <span>Data Model</span> | <span>Backend API</span>
         </div>
-        <div className="split-right">
-          <div className="hero-text">
-            <h1>My Portfolio</h1>
-            <RotatingTitles titles={['BTech CSE Student', 'Data Science Engineer']} />
-            <p className="hero-sub">Specializing in building scalable data-driven applications.</p>
-            <button className="btn-primary">Explore Now</button>
+      </header>
+
+      <section id="about" className="about-section reveal">
+        <h3>About Me</h3>
+        <div className="split-content">
+          <div className="split-left">
+            <h4>My Vision</h4>
+            <p>Creating seamless user experiences through efficient code.</p>
           </div>
-          <span className="page-num">Page | 01</span>
+          <div className="split-right">
+            <h4>My Mission</h4>
+            <p>Merging the worlds of Computer Science and Data Analytics.</p>
+          </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="section about reveal">
-        <div className="gallery-top">
-          <div className="img-box">Project Alpha</div>
-          <div className="img-box">Data Model</div>
-          <div className="img-box">Backend API</div>
+      <footer id="contact" className="contact-section reveal">
+        <h3>My Contact</h3>
+        <div className="contact-info">
+          <p><strong>Phone:</strong> +91-XXX-XXX-XXXX</p>
+          <p><strong>Website:</strong> <a href="http://www.ashilsaji.com">www.ashilsaji.com</a></p>
+          <p><strong>Email:</strong> <a href="mailto:hello@ashilsaji.com">hello@ashilsaji.com</a></p>
         </div>
-        <div className="about-content">
-          <h2>About Me</h2>
-          <div className="about-grid">
-            <div>
-              <h3>My Vision</h3>
-              <p>Creating seamless user experiences through efficient code.</p>
-            </div>
-            <div>
-              <h3>My Mission</h3>
-              <p>Merging the worlds of Computer Science and Data Analytics.</p>
-            </div>
-          </div>
-        </div>
-        <span className="page-num">Page | 03</span>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="section contact reveal">
-        <div className="split-left">
-          <div className="image-placeholder secondary-photo">
-            <img src="https://via.placeholder.com/800x1200" alt="Contact Visual" />
-          </div>
-        </div>
-        <div className="split-right">
-          <div className="contact-text">
-            <h2>My Contact</h2>
-            <div className="contact-details">
-              <p><strong>Phone:</strong> +91-XXX-XXX-XXXX</p>
-              <p><strong>Website:</strong> www.ashilsaji.com</p>
-              <p><strong>Email:</strong> hello@ashilsaji.com</p>
-              <p><strong>Location:</strong> Kerala, India</p>
-            </div>
-          </div>
-          <span className="page-num">Page | 09</span>
-        </div>
-      </section>
+      </footer>
     </div>
   );
 }
+
+export default App;
